@@ -1,11 +1,22 @@
-const express = require("express");
+import express from "express";
 const app = express();
 
 const PORT = 4000;
 
-function handleListening() {
-    console.log('Listening on: http://localhost:${PORT}');
-    console.log('${PORT}');
+const handleListening = () => 
+    console.log(`Listening on: http://localhost:${PORT}`);;
+
+const between = (req, res, next) => {
+    console.log(`I'm between`);
+    next();
 }
+
+const handleHome = (req, res) => {
+    res.send("Hello hi");
+};
+
+app.use(between);
+
+app.get("/", handleHome);
 
 app.listen(PORT, handleListening);
